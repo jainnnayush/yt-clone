@@ -1,18 +1,39 @@
 import axios from "axios";
 
 const API_KEY=import.meta.env.VITE_YOUTUBE_API_KEY;
-const BASE_URL="https://youtube342.p.rapidapi.com"
 
 const options = {
-	headers: {
-		'x-rapidapi-key': '8db1bc156fmshb72c6b359a474d8p16da3cjsnd941b791ba27',
-		'x-rapidapi-host': 'youtube342.p.rapidapi.com'
-	}
-};
+    method: 'GET',
+    url: 'https://youtube342.p.rapidapi.com/search',
+    params: {
+      part: 'snippet',
+      q: 'surfing',
+      channelType: 'any',
+      eventType: 'completed',
+      maxResults: '25',
+      safeSearch: 'moderate',
+      type: 'video',
+      videoCaption: 'any',
+      videoDefinition: 'any',
+      videoDimension: '2d',
+      videoDuration: 'short',
+      videoEmbeddable: 'true',
+      videoLicense: 'creativeCommon',
+      videoPaidProductPlacement: 'true',
+      videoSyndicated: 'true',
+      videoType: 'episode'
+    },
+    headers: {
+      'x-rapidapi-key': API_KEY,
+      'x-rapidapi-host': 'youtube342.p.rapidapi.com'
+    }
+  };
 
 export const fetchData=async(url)=>{
     try {
-        const {data}= await axios.get(`${BASE_URL}/${url}`,options);
+        options.params.q = url;
+        const {data}= await axios.request(options);
+        console.log(data);
         return {data};
     } catch (error) {
         console.error("error fetching api data: ", error);
