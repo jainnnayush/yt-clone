@@ -13,8 +13,8 @@ export default function AuthProvider({children}){
 
     const fetchAlldata=(query)=>{
         setLoading(true);
-        fetchData(query).then((res)=>{
-            setData(res);
+        fetchData(query).then(({contents})=>{
+            setData(contents);
             setLoading(false);
         }).catch((e) => {
             console.log("error feetching data from api: ",e);
